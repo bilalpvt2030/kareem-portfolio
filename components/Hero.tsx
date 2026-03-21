@@ -1,173 +1,226 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowDown, Linkedin, Mail, BarChart2, TrendingUp, Database } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { ArrowDown, Linkedin, Mail } from 'lucide-react';
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-});
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.2 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+};
 
 export default function Hero() {
-  const scrollToAbout = () => {
-    document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" aria-label="Hero">
-      {/* Background glows */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-600/08 rounded-full blur-[100px]" />
+    <section ref={ref} className="relative min-h-screen overflow-hidden ambient-bg" aria-label="Hero">
+      {/* Ambient orbs */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-[rgba(80,60,180,0.05)] blur-[140px]" />
+        <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[rgba(40,20,100,0.06)] blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24 pt-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Text Content */}
-          <div className="order-2 lg:order-1">
-            {/* Badge */}
-            <motion.div {...fadeUp(0.1)} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-              Available for opportunities
+      {/* Thin top rule */}
+      <div className="absolute top-[70px] inset-x-0 h-px bg-white/[0.04]" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-[110px] pb-20 min-h-screen flex flex-col justify-center">
+        {/* Grid: text left, image right */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] xl:grid-cols-[1fr_460px] gap-16 lg:gap-20 items-center">
+
+          {/* === LEFT: TEXT === */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+            className="order-2 lg:order-1 flex flex-col"
+          >
+            {/* Label row */}
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+              <span className="w-8 h-px bg-white/20" />
+              <span className="section-label tracking-[0.3em]">Business Analyst</span>
             </motion.div>
 
-            {/* Name */}
-            <motion.h1 {...fadeUp(0.2)} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 leading-[1.1]">
-              Kareem{' '}
-              <span className="gradient-text">Meenazi</span>
+            {/* Name — massive editorial */}
+            <motion.h1
+              variants={fadeUp}
+              className="text-[clamp(3rem,8vw,6.5rem)] font-black leading-[0.92] tracking-[-0.03em] text-white mb-2"
+            >
+              Kareem
+            </motion.h1>
+            <motion.h1
+              variants={fadeUp}
+              className="text-[clamp(3rem,8vw,6.5rem)] font-black leading-[0.92] tracking-[-0.03em] mb-8"
+              style={{ WebkitTextStroke: '1px rgba(255,255,255,0.25)', color: 'transparent' }}
+            >
+              Meenazi
             </motion.h1>
 
-            {/* Title */}
-            <motion.p {...fadeUp(0.3)} className="text-lg sm:text-xl font-semibold text-slate-300 mb-4">
-              Business Analyst
-            </motion.p>
+            {/* Divider */}
+            <motion.div variants={fadeUp} className="w-full h-px bg-white/[0.07] mb-7" />
 
             {/* Tagline */}
-            <motion.p {...fadeUp(0.4)} className="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-lg">
-              From insights to action — building smarter business solutions through data, strategy, and clear communication.
+            <motion.p
+              variants={fadeUp}
+              className="text-[15px] text-[#808090] leading-[1.75] max-w-[480px] mb-10"
+            >
+              From insights to action &mdash; building smarter business solutions through data, strategy, and clear communication.
             </motion.p>
 
-            {/* Stat pills */}
-            <motion.div {...fadeUp(0.45)} className="flex flex-wrap gap-3 mb-8">
-              {[
-                { icon: BarChart2, label: 'Power BI' },
-                { icon: Database, label: 'Data Analysis' },
-                { icon: TrendingUp, label: 'Business Strategy' },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium">
-                  <Icon size={12} className="text-indigo-400" />
-                  {label}
-                </div>
-              ))}
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div {...fadeUp(0.5)} className="flex flex-wrap gap-4 mb-10">
-              <motion.a
-                href="#experience"
-                onClick={(e) => { e.preventDefault(); document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-sm hover:opacity-90 transition-all shadow-lg shadow-indigo-900/40"
-                whileHover={{ scale: 1.03, y: -1 }}
-                whileTap={{ scale: 0.98 }}
+            {/* CTA row */}
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4 mb-10">
+              <motion.button
+                onClick={() => document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth' })}
+                className="btn-primary"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
               >
-                View Experience
-              </motion.a>
-              <motion.a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="px-6 py-3 rounded-xl border border-white/15 text-slate-300 font-semibold text-sm hover:border-indigo-500/50 hover:text-white transition-all"
-                whileHover={{ scale: 1.03, y: -1 }}
-                whileTap={{ scale: 0.98 }}
+                View Work
+                <ArrowDown size={13} />
+              </motion.button>
+              <motion.button
+                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="btn-ghost"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
               >
                 Get In Touch
-              </motion.a>
+              </motion.button>
             </motion.div>
 
-            {/* Social Links */}
-            <motion.div {...fadeUp(0.55)} className="flex gap-4">
+            {/* Socials */}
+            <motion.div variants={fadeUp} className="flex items-center gap-6">
               <a
                 href="https://www.linkedin.com/in/kareem-meenazi-10013b265/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors text-sm"
-                aria-label="LinkedIn Profile"
+                className="flex items-center gap-2 text-[12px] text-[#505060] hover:text-white transition-colors tracking-wide"
+                aria-label="LinkedIn"
               >
-                <Linkedin size={16} />
-                <span>LinkedIn</span>
+                <Linkedin size={13} />
+                LinkedIn
               </a>
+              <span className="w-px h-3 bg-white/10" />
               <a
                 href="mailto:Kareemmeenazi1116@icloud.com"
-                className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors text-sm"
-                aria-label="Email Kareem"
+                className="flex items-center gap-2 text-[12px] text-[#505060] hover:text-white transition-colors tracking-wide"
+                aria-label="Email"
               >
-                <Mail size={16} />
-                <span>Email</span>
+                <Mail size={13} />
+                Email
               </a>
+              <span className="w-px h-3 bg-white/10" />
+              <span className="tag">Available</span>
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Right: Profile Image + decorative card */}
+          {/* === RIGHT: PHOTO === */}
           <motion.div
             className="order-1 lg:order-2 flex justify-center lg:justify-end"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, scale: 0.95, x: 30 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 1.0, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative">
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/30 to-purple-500/20 blur-2xl scale-110" />
-              {/* Image container */}
-              <div className="relative w-64 h-72 sm:w-72 sm:h-80 lg:w-80 lg:h-96 rounded-2xl overflow-hidden border border-white/10 glow-purple">
-                {/* Gradient overlay for images not yet provided */}
-                <div className="w-full h-full bg-gradient-to-br from-indigo-900/60 via-slate-800/80 to-purple-900/60 flex flex-col items-center justify-center">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4 text-3xl font-bold text-white shadow-xl">
-                    KM
+            <div className="relative w-[300px] sm:w-[360px] lg:w-[420px] xl:w-[460px]">
+              {/* Outer glow ring */}
+              <div className="absolute -inset-[3px] rounded-2xl bg-gradient-to-br from-white/[0.12] via-[rgba(120,100,200,0.15)] to-transparent" />
+
+              {/* Photo container - tall portrait ratio */}
+              <motion.div
+                className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden"
+                style={{ y: imgY, scale: imgScale }}
+              >
+                {/* Try real image first, fallback to styled placeholder */}
+                <Image
+                  src="/images/kareem.jpg"
+                  alt="Kareem Meenazi - Business Analyst"
+                  fill
+                  priority
+                  className="object-cover object-top grayscale brightness-95 contrast-110"
+                  onError={(e) => {
+                    const el = e.currentTarget as HTMLImageElement;
+                    el.style.display = 'none';
+                  }}
+                />
+
+                {/* Fallback gradient (shows if no image) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23] flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/15 flex items-center justify-center mb-5">
+                    <span className="text-4xl font-black text-white/80 tracking-tight">KM</span>
                   </div>
-                  <p className="text-slate-300 font-semibold text-lg">Kareem Meenazi</p>
-                  <p className="text-indigo-400 text-sm mt-1">Business Analyst</p>
-                  <div className="mt-4 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-xs text-indigo-300">
-                    Hyderabad, IN
+                  <p className="text-white/60 text-sm font-medium tracking-widest uppercase">Kareem Meenazi</p>
+                  <p className="text-white/30 text-xs mt-1 tracking-widest">Upload photo to activate</p>
+                </div>
+
+                {/* Overlay gradient — bottom vignette for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050508]/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#050508]/20 via-transparent to-transparent" />
+
+                {/* Bottom info strip */}
+                <div className="absolute bottom-0 inset-x-0 p-5">
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <p className="text-white font-bold text-lg leading-tight">Kareem</p>
+                      <p className="text-white/50 text-xs tracking-widest uppercase mt-0.5">Business Analyst</p>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-white/70 text-[10px] font-medium">Available</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* Floating badge */}
-              <motion.div
-                className="absolute -bottom-4 -left-4 px-4 py-2 rounded-xl glass-card text-xs font-semibold text-slate-300"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-              >
-                📊 Power BI & Excel Expert
               </motion.div>
+
+              {/* Floating stat chip - top right */}
               <motion.div
-                className="absolute -top-4 -right-4 px-4 py-2 rounded-xl glass-card text-xs font-semibold text-slate-300"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.0 }}
+                className="absolute -top-4 -right-4 glass-card px-4 py-3 rounded-xl text-center"
+                initial={{ opacity: 0, y: -12, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+                style={{ border: '1px solid rgba(255,255,255,0.08)' }}
               >
-                🏆 MUN Participant
+                <p className="text-[10px] text-[#505060] uppercase tracking-wider">Expertise</p>
+                <p className="text-sm font-bold text-white mt-0.5">Power BI</p>
+              </motion.div>
+
+              {/* Floating stat chip - bottom left */}
+              <motion.div
+                className="absolute -bottom-4 -left-4 glass-card px-4 py-3 rounded-xl"
+                initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 1.1, duration: 0.5 }}
+                style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <p className="text-[10px] text-[#505060] uppercase tracking-wider mb-0.5">Based in</p>
+                <p className="text-sm font-bold text-white">Hyderabad, IN</p>
               </motion.div>
             </div>
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Bottom scroll hint */}
         <motion.div
-          className="flex justify-center mt-16"
+          className="flex items-center gap-4 mt-16 lg:mt-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 1.4 }}
         >
+          <div className="rule max-w-[80px]" />
           <motion.button
-            onClick={scrollToAbout}
-            className="flex flex-col items-center gap-2 text-slate-500 hover:text-slate-300 transition-colors group"
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-            aria-label="Scroll to about section"
+            onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 text-[11px] text-[#505060] hover:text-white transition-colors tracking-[0.2em] uppercase"
+            animate={{ y: [0, 4, 0] }}
+            transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           >
-            <span className="text-xs tracking-widest uppercase">Scroll</span>
-            <ArrowDown size={16} className="group-hover:text-indigo-400 transition-colors" />
+            Scroll to explore
+            <ArrowDown size={12} />
           </motion.button>
         </motion.div>
       </div>

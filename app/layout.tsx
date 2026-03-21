@@ -1,29 +1,62 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Kareem | Business Analyst & Data Enthusiast',
-  description: 'Portfolio of Kareem — Business Analyst, Data Enthusiast, and Problem Solver. Turning data into decisions.',
-  keywords: ['Business Analyst', 'Data Analyst', 'Portfolio', 'Kareem'],
-  authors: [{ name: 'Kareem' }],
+  title: 'Kareem Meenazi | Business Analyst',
+  description: 'Portfolio of Kareem Meenazi — aspiring Business Analyst with expertise in data analysis, Power BI, Excel, and strategic problem-solving. Based in Hyderabad.',
+  keywords: ['Business Analyst', 'Kareem Meenazi', 'Power BI', 'Data Analysis', 'Portfolio', 'Hyderabad'],
+  authors: [{ name: 'Kareem Meenazi' }],
+  creator: 'Kareem Meenazi',
   openGraph: {
-    title: 'Kareem | Business Analyst & Data Enthusiast',
-    description: 'Portfolio of Kareem — Business Analyst, Data Enthusiast, and Problem Solver.',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://kareem-portfolio-psi.vercel.app',
+    title: 'Kareem Meenazi | Business Analyst',
+    description: 'From insights to action — building smarter business solutions.',
+    siteName: 'Kareem Meenazi Portfolio',
+    images: [{
+      url: '/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'Kareem Meenazi - Business Analyst',
+    }],
   },
-}
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kareem Meenazi | Business Analyst',
+    description: 'From insights to action — building smarter business solutions.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="animated-gradient antialiased">
+        {children}
+      </body>
     </html>
-  )
+  );
 }

@@ -1,94 +1,107 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { User, MapPin, GraduationCap, Briefcase } from 'lucide-react';
+import { MapPin, Briefcase, GraduationCap, Users } from 'lucide-react';
 
-const highlights = [
-  { icon: MapPin, label: 'Location', value: 'Hyderabad, India' },
-  { icon: GraduationCap, label: 'Education', value: "St. Mary's College, Osmania University" },
+const stats = [
+  { icon: MapPin, label: 'Location', value: 'Hyderabad, IN' },
   { icon: Briefcase, label: 'Focus', value: 'Business Analysis & Data Strategy' },
-  { icon: User, label: 'Status', value: 'Open to Opportunities' },
+  { icon: GraduationCap, label: 'Education', value: 'BSc Business & Analytics' },
+  { icon: Users, label: 'Status', value: 'Open to Opportunities' },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+
 export default function About() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="about" className="section-padding relative" aria-label="About Kareem">
-      {/* Section bg accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-600/5 rounded-full blur-[100px]" />
-      </div>
+    <section ref={ref} id="about" className="py-28 bg-[#080810]" aria-label="About">
+      <div className="section-container">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 lg:gap-24 items-start">
 
-      <div className="max-w-6xl mx-auto relative z-10" ref={ref}>
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-14"
-        >
-          <p className="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">About Me</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            A bit about{' '}
-            <span className="gradient-text">who I am</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
-          {/* Left: Bio text */}
+          {/* Left: text */}
           <motion.div
-            className="lg:col-span-3 space-y-5"
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
+            variants={stagger}
+            initial="hidden"
+            animate={inView ? 'show' : 'hidden'}
           >
-            <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-              I am an aspiring <span className="text-white font-semibold">Business Analyst</span> with a strong foundation in communication, analytical thinking, and problem-solving. I am passionate about understanding business challenges and translating them into <span className="text-indigo-400 font-medium">actionable insights</span>.
-            </p>
-            <p className="text-slate-400 text-base leading-relaxed">
-              With experience across multiple domains including <span className="text-slate-300">sales, real estate operations,</span> and <span className="text-slate-300">case-based analysis</span>, I bring adaptability and a practical approach to every task.
-            </p>
-            <p className="text-slate-400 text-base leading-relaxed">
-              I am committed, reliable, and continuously learning to enhance my skills in <span className="text-slate-300">business analytics and decision-making</span>.
-            </p>
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
+              <span className="w-6 h-px bg-white/20" />
+              <span className="section-label">About Me</span>
+            </motion.div>
 
-            {/* Quote block */}
-            <div className="mt-6 pl-4 border-l-2 border-indigo-500/50">
-              <p className="text-slate-300 italic text-sm leading-relaxed">
-                &ldquo;Blending communication and analytics to drive business growth &mdash; one insight at a time.&rdquo;
+            <motion.h2
+              variants={fadeUp}
+              className="text-[clamp(2rem,5vw,3.25rem)] font-black leading-tight tracking-[-0.03em] mb-8"
+            >
+              A bit about{' '}
+              <span className="heading-outline">who I am</span>
+            </motion.h2>
+
+            <motion.div variants={fadeUp} className="flex flex-col gap-5 text-[15px] text-[#a0a0b0] leading-[1.8]">
+              <p>
+                I am an aspiring{' '}
+                <strong className="text-white font-semibold">Business Analyst</strong>{' '}
+                with a strong foundation in communication, analytical thinking, and problem-solving.
+                I am passionate about understanding business challenges and translating them into{' '}
+                <strong className="text-white font-medium">actionable insights</strong>.
               </p>
-            </div>
+              <p>
+                With experience across multiple domains including{' '}
+                <strong className="text-white/80 font-medium">sales, real estate operations,</strong> and{' '}
+                <strong className="text-white/80 font-medium">case-based analysis</strong>,
+                I bring adaptability and a practical approach to every task.
+              </p>
+              <p>
+                I am committed, reliable, and continuously learning to enhance my skills in{' '}
+                <strong className="text-white/80 font-medium">business analytics and decision-making</strong>.
+              </p>
+            </motion.div>
+
+            <motion.blockquote
+              variants={fadeUp}
+              className="mt-8 pl-4 border-l border-white/10 text-[14px] italic text-[#505060]"
+            >
+              &ldquo;Blending communication and analytics to drive business growth &mdash; one insight at a time.&rdquo;
+            </motion.blockquote>
           </motion.div>
 
-          {/* Right: Highlights cards */}
+          {/* Right: stats grid */}
           <motion.div
-            className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4"
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            variants={stagger}
+            initial="hidden"
+            animate={inView ? 'show' : 'hidden'}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3"
           >
-            {highlights.map((item, i) => (
+            {stats.map(({ icon: Icon, label, value }) => (
               <motion.div
-                key={item.label}
-                className="glass-card p-4 flex items-start gap-3"
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
+                key={label}
+                variants={fadeUp}
+                whileHover={{ y: -3, borderColor: 'rgba(255,255,255,0.12)' }}
+                className="glass-card rounded-xl p-5 transition-colors"
               >
-                <div className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex-shrink-0">
-                  <item.icon size={14} className="text-indigo-400" />
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-7 h-7 rounded-lg bg-white/[0.05] border border-white/[0.07] flex items-center justify-center">
+                    <Icon size={13} className="text-white/50" />
+                  </div>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[#505060]">{label}</span>
                 </div>
-                <div>
-                  <p className="text-xs font-medium text-slate-500 mb-0.5">{item.label}</p>
-                  <p className="text-sm font-medium text-slate-200">{item.value}</p>
-                </div>
+                <p className="text-[15px] font-semibold text-white leading-snug">{value}</p>
               </motion.div>
             ))}
           </motion.div>
+
         </div>
       </div>
     </section>

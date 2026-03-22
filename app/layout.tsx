@@ -1,12 +1,25 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
+export const viewport: Viewport = {
+  themeColor: '#0a0a0a',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://kareem-portfolio-psi.vercel.app'),
   title: 'Kareem Meenazi | Business Analyst',
   description: 'Portfolio of Kareem Meenazi — aspiring Business Analyst with expertise in data analysis, Power BI, Excel, and strategic problem-solving. Based in Hyderabad.',
   keywords: ['Business Analyst', 'Kareem Meenazi', 'Power BI', 'Data Analysis', 'Portfolio', 'Hyderabad'],
   authors: [{ name: 'Kareem Meenazi' }],
   creator: 'Kareem Meenazi',
+  alternates: {
+    canonical: 'https://kareem-portfolio-psi.vercel.app',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -25,6 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Kareem Meenazi | Business Analyst',
     description: 'From insights to action — building smarter business solutions.',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -56,6 +70,8 @@ export default function RootLayout({
       </head>
       <body className="animated-gradient antialiased">
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

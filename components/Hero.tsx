@@ -6,7 +6,6 @@ import Image from 'next/image';
 export default function Hero() {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 pt-20">
-      {/* Background blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
@@ -84,18 +83,18 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="w-72 sm:w-80 bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
-            {/* Profile image */}
-            <div className="relative h-64 w-full overflow-hidden bg-gradient-to-br from-blue-600/20 to-purple-600/20">
+            {/* Profile image - no gap, full bleed */}
+            <div className="relative h-72 w-full">
               <Image
                 src="/images/km_page-0001.jpg"
                 alt="Kareem Meenazi"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-center"
                 priority
               />
             </div>
             {/* Card info */}
-            <div className="p-5">
+            <div className="p-5 bg-slate-800/60">
               <h3 className="text-white font-bold text-xl mb-1">Kareem Meenazi</h3>
               <p className="text-blue-400 text-sm font-medium mb-4">Business Analyst</p>
               <div className="space-y-2">

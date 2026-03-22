@@ -7,10 +7,14 @@ import Projects from '@/components/Projects';
 import Pursuits from '@/components/Pursuits';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import ScrollProgress from '@/components/ScrollProgress';
+import PageLoader from '@/components/PageLoader';
 
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
+      <PageLoader />
+      <ScrollProgress />
       <Navbar />
       <Hero />
       <About />

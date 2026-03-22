@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Users, BarChart2, ShoppingBag, Building2, GraduationCap, BookOpen } from 'lucide-react';
 
 const experiences = [
   {
     id: 1,
     type: 'experience',
-    icon: '🏆',
+    Icon: Users,
     title: 'Model United Nations (MUN)',
     org: 'Multiple Conferences',
     period: 'Academic Years',
@@ -22,7 +23,7 @@ const experiences = [
   {
     id: 2,
     type: 'experience',
-    icon: '📈',
+    Icon: BarChart2,
     title: 'FMCG Case Studies',
     org: 'Business Analysis Projects',
     period: 'Project-Based',
@@ -36,7 +37,7 @@ const experiences = [
   {
     id: 3,
     type: 'experience',
-    icon: '🚗',
+    Icon: ShoppingBag,
     title: 'Sales Experience',
     org: 'Automotive & Kitchen Remodeling',
     period: 'Sales Role',
@@ -50,7 +51,7 @@ const experiences = [
   {
     id: 4,
     type: 'experience',
-    icon: '🏢',
+    Icon: Building2,
     title: 'Real Estate Operations',
     org: 'Property Management',
     period: 'Operational Role',
@@ -66,7 +67,7 @@ const experiences = [
 const education = [
   {
     id: 'edu1',
-    icon: '🎓',
+    Icon: GraduationCap,
     degree: "Bachelor's Degree",
     institution: "St. Mary's College",
     sub: 'Affiliated with Osmania University',
@@ -74,7 +75,7 @@ const education = [
   },
   {
     id: 'edu2',
-    icon: '🏣',
+    Icon: BookOpen,
     degree: 'Schooling',
     institution: 'Glendale Academy',
     sub: 'Foundation Years',
@@ -87,13 +88,11 @@ export default function Experience() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
   const eduRef = useRef(null);
   const eduInView = useInView(eduRef, { once: true, margin: '-60px' });
-
   return (
     <section id="experience" className="section-padding relative" aria-label="Experience and Education">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 right-0 w-80 h-80 bg-indigo-600/5 rounded-full blur-[120px]" />
       </div>
-
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
@@ -108,12 +107,10 @@ export default function Experience() {
             <span className="gradient-text">Education</span>
           </h2>
         </motion.div>
-
         {/* Experience Timeline */}
         <div ref={ref} className="relative mb-20">
           {/* Timeline line */}
           <div className="hidden md:block absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/40 via-purple-500/20 to-transparent" />
-
           <div className="space-y-6">
             {experiences.map((exp, i) => (
               <motion.div
@@ -125,11 +122,10 @@ export default function Experience() {
               >
                 {/* Timeline dot */}
                 <div className="hidden md:flex flex-col items-center flex-shrink-0">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center text-xl shadow-lg z-10`}>
-                    {exp.icon}
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg z-10`}>
+                    <exp.Icon className="w-5 h-5 text-white" />
                   </div>
                 </div>
-
                 {/* Card */}
                 <div className="flex-1 glass-card p-6">
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
@@ -154,7 +150,6 @@ export default function Experience() {
             ))}
           </div>
         </div>
-
         {/* Education */}
         <div ref={eduRef}>
           <motion.h3
@@ -174,8 +169,8 @@ export default function Experience() {
                 animate={eduInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
               >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${edu.color} flex items-center justify-center text-2xl mb-4 shadow-lg`}>
-                  {edu.icon}
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${edu.color} flex items-center justify-center mb-4 shadow-lg`}>
+                  <edu.Icon className="w-5 h-5 text-white" />
                 </div>
                 <p className="text-xs font-semibold text-indigo-400 uppercase tracking-widest mb-1">{edu.degree}</p>
                 <h4 className="text-base font-bold text-white mb-1">{edu.institution}</h4>

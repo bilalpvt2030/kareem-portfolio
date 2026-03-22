@@ -1,9 +1,8 @@
 'use client';
-
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowDown, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Linkedin, Mail, MapPin } from 'lucide-react';
 
 const stagger = {
   hidden: {},
@@ -27,12 +26,9 @@ export default function Hero() {
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-[rgba(80,60,180,0.05)] blur-[140px]" />
         <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[rgba(40,20,100,0.06)] blur-[100px]" />
       </div>
-
-      {/* Thin top rule */}
       <div className="absolute top-[70px] inset-x-0 h-px bg-white/[0.04]" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-[110px] pb-20 min-h-screen flex flex-col justify-center">
-        {/* Grid: text left, image right */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] xl:grid-cols-[1fr_460px] gap-16 lg:gap-20 items-center">
 
           {/* === LEFT: TEXT === */}
@@ -48,7 +44,7 @@ export default function Hero() {
               <span className="section-label tracking-[0.3em]">Business Analyst</span>
             </motion.div>
 
-            {/* Name — massive editorial */}
+            {/* Name */}
             <motion.h1
               variants={fadeUp}
               className="text-[clamp(3rem,8vw,6.5rem)] font-black leading-[0.92] tracking-[-0.03em] text-white mb-2"
@@ -71,7 +67,7 @@ export default function Hero() {
               variants={fadeUp}
               className="text-[15px] text-[#808090] leading-[1.75] max-w-[480px] mb-10"
             >
-              From insights to action &mdash; building smarter business solutions through data, strategy, and clear communication.
+              From insights to action — building smarter business solutions through data, strategy, and clear communication.
             </motion.p>
 
             {/* CTA row */}
@@ -137,10 +133,10 @@ export default function Hero() {
                 className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden"
                 style={{ y: imgY, scale: imgScale }}
               >
-                {/* Try real image first, fallback to styled placeholder */}
+                {/* Real photo */}
                 <Image
                   src="/images/kareem.jpg"
-                  alt="Kareem Meenazi - Business Analyst"
+                  alt="Kareem Meenazi - Business Analyst based in Hyderabad"
                   fill
                   priority
                   className="object-cover object-top grayscale brightness-95 contrast-110"
@@ -150,7 +146,7 @@ export default function Hero() {
                   }}
                 />
 
-                {/* Fallback gradient (shows if no image) */}
+                {/* Fallback (shown only if image missing) */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23] flex flex-col items-center justify-center">
                   <div className="w-28 h-28 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/15 flex items-center justify-center mb-5">
                     <span className="text-4xl font-black text-white/80 tracking-tight">KM</span>
@@ -159,16 +155,20 @@ export default function Hero() {
                   <p className="text-white/30 text-xs mt-1 tracking-widest">Upload photo to activate</p>
                 </div>
 
-                {/* Overlay gradient — bottom vignette for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050508]/60 via-transparent to-transparent" />
+                {/* Overlay gradients for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050508]/70 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-r from-[#050508]/20 via-transparent to-transparent" />
 
-                {/* Bottom info strip */}
+                {/* Bottom info strip — name + location + availability */}
                 <div className="absolute bottom-0 inset-x-0 p-5">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="text-white font-bold text-lg leading-tight">Kareem</p>
+                      <p className="text-white font-bold text-lg leading-tight">Kareem Meenazi</p>
                       <p className="text-white/50 text-xs tracking-widest uppercase mt-0.5">Business Analyst</p>
+                      <div className="flex items-center gap-1 mt-1.5">
+                        <MapPin size={10} className="text-white/40" />
+                        <span className="text-white/40 text-[10px] tracking-wide">Hyderabad, IN</span>
+                      </div>
                     </div>
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -178,7 +178,7 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Floating stat chip - top right */}
+              {/* Single floating chip - top right only (Power BI) */}
               <motion.div
                 className="absolute -top-4 -right-4 glass-card px-4 py-3 rounded-xl text-center"
                 initial={{ opacity: 0, y: -12, scale: 0.9 }}
@@ -189,23 +189,11 @@ export default function Hero() {
                 <p className="text-[10px] text-[#505060] uppercase tracking-wider">Expertise</p>
                 <p className="text-sm font-bold text-white mt-0.5">Power BI</p>
               </motion.div>
-
-              {/* Floating stat chip - bottom left */}
-              <motion.div
-                className="absolute -bottom-4 -left-4 glass-card px-4 py-3 rounded-xl"
-                initial={{ opacity: 0, y: 12, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 1.1, duration: 0.5 }}
-                style={{ border: '1px solid rgba(255,255,255,0.08)' }}
-              >
-                <p className="text-[10px] text-[#505060] uppercase tracking-wider mb-0.5">Based in</p>
-                <p className="text-sm font-bold text-white">Hyderabad, IN</p>
-              </motion.div>
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom scroll hint */}
+        {/* Scroll hint */}
         <motion.div
           className="flex items-center gap-4 mt-16 lg:mt-20"
           initial={{ opacity: 0 }}

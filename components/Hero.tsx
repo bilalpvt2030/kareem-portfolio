@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { MapPin, Briefcase, GraduationCap, BarChart2 } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Hero() {
   return (
@@ -82,36 +83,37 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="relative">
-            <div className="w-72 sm:w-80 bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
-              {/* Profile image area */}
-              <div className="h-48 bg-gradient-to-br from-blue-600/30 to-purple-600/30 flex items-center justify-center">
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-4xl font-bold shadow-xl">
-                  KM
+          <div className="w-72 sm:w-80 bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
+            {/* Profile image */}
+            <div className="relative h-64 w-full overflow-hidden bg-gradient-to-br from-blue-600/20 to-purple-600/20">
+              <Image
+                src="/images/km_page-0001.jpg"
+                alt="Kareem Meenazi"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </div>
+            {/* Card info */}
+            <div className="p-5">
+              <h3 className="text-white font-bold text-xl mb-1">Kareem Meenazi</h3>
+              <p className="text-blue-400 text-sm font-medium mb-4">Business Analyst</p>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-slate-400 text-sm">
+                  <MapPin size={14} className="text-blue-400 flex-shrink-0" />
+                  <span>Hyderabad, IN</span>
                 </div>
-              </div>
-              {/* Card info */}
-              <div className="p-5">
-                <h3 className="text-white font-bold text-xl mb-1">Kareem Meenazi</h3>
-                <p className="text-blue-400 text-sm font-medium mb-4">Business Analyst</p>
-                {/* Info strips */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
-                    <MapPin size={14} className="text-blue-400 flex-shrink-0" />
-                    <span>Hyderabad, IN</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
-                    <Briefcase size={14} className="text-purple-400 flex-shrink-0" />
-                    <span>Open to Opportunities</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
-                    <GraduationCap size={14} className="text-blue-400 flex-shrink-0" />
-                    <span>St. Mary&apos;s College, Osmania</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
-                    <BarChart2 size={14} className="text-purple-400 flex-shrink-0" />
-                    <span>Expertise: Power BI &amp; Excel</span>
-                  </div>
+                <div className="flex items-center gap-2 text-slate-400 text-sm">
+                  <Briefcase size={14} className="text-purple-400 flex-shrink-0" />
+                  <span>Open to Opportunities</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-400 text-sm">
+                  <GraduationCap size={14} className="text-blue-400 flex-shrink-0" />
+                  <span>St. Mary&apos;s College, Osmania</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-400 text-sm">
+                  <BarChart2 size={14} className="text-purple-400 flex-shrink-0" />
+                  <span>Expertise: Power BI &amp; Excel</span>
                 </div>
               </div>
             </div>

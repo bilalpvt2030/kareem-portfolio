@@ -7,50 +7,38 @@ const pursuits = [
   {
     icon: Users,
     title: 'Model United Nations (MUN)',
-    description:
-      'Active participant and delegate in MUN conferences, honing skills in diplomacy, public speaking, research, and negotiation on global issues.',
+    description: 'Active participant and delegate in MUN conferences, honing skills in diplomacy, public speaking, research, and negotiation on global issues.',
     tag: 'Leadership & Diplomacy',
-    color: 'from-blue-500 to-indigo-600',
   },
   {
     icon: TrendingUp,
     title: 'FMCG Case Study Analysis',
-    description:
-      'Deep-dived into Fast-Moving Consumer Goods sector case studies, analyzing market strategies, consumer behavior, and competitive positioning.',
+    description: 'Deep-dived into Fast-Moving Consumer Goods sector case studies, analyzing market strategies, consumer behavior, and competitive positioning.',
     tag: 'Business & Strategy',
-    color: 'from-purple-500 to-pink-600',
   },
   {
     icon: Trophy,
     title: 'Sales — Automotive & Kitchen',
-    description:
-      'Hands-on sales experience across automotive and kitchen product segments, developing client relationship skills and understanding consumer decision journeys.',
+    description: 'Hands-on sales experience across automotive and kitchen product segments, developing client relationship skills and understanding consumer decision journeys.',
     tag: 'Sales & Client Relations',
-    color: 'from-orange-500 to-red-600',
   },
   {
     icon: Target,
     title: 'Real Estate Operations',
-    description:
-      'Exposure to real estate operations, understanding property markets, client acquisition, and documentation processes in a fast-paced environment.',
+    description: 'Exposure to real estate operations, understanding property markets, client acquisition, and documentation processes in a fast-paced environment.',
     tag: 'Operations & Market Insight',
-    color: 'from-teal-500 to-cyan-600',
   },
   {
     icon: BookOpen,
     title: 'Business Research & Market Analysis',
-    description:
-      'Conducted structured business research and market analysis projects, translating raw data into actionable insights for decision-making.',
+    description: 'Conducted structured business research and market analysis projects, translating raw data into actionable insights for decision-making.',
     tag: 'Research & Analytics',
-    color: 'from-green-500 to-emerald-600',
   },
   {
     icon: Lightbulb,
     title: 'Problem-Solving & Critical Thinking',
-    description:
-      'Consistently applying structured problem-solving frameworks to real-world business challenges, focusing on data-driven and creative approaches.',
+    description: 'Consistently applying structured problem-solving frameworks to real-world business challenges, focusing on data-driven and creative approaches.',
     tag: 'Strategy & Innovation',
-    color: 'from-yellow-500 to-amber-600',
   },
 ];
 
@@ -58,7 +46,8 @@ export default function Pursuits() {
   return (
     <section
       id="pursuits"
-      className="py-24 bg-gradient-to-b from-slate-900 to-slate-950"
+      className="section-padding"
+      style={{ background: '#111111' }}
     >
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
@@ -69,18 +58,22 @@ export default function Pursuits() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full mb-4">
+          <span
+            className="inline-block px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded-full mb-4"
+            style={{
+              color: '#9A9490',
+              background: 'rgba(201,192,176,0.06)',
+              border: '1px solid rgba(201,192,176,0.12)',
+            }}
+          >
             What Drives Me
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#F0EDE8' }}>
             My{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              Pursuits
-            </span>
+            <span className="gradient-text">Pursuits</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Beyond titles and roles — here are the experiences and endeavors that
-            shape how I think, work, and grow.
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#9A9490' }}>
+            Beyond titles and roles — here are the experiences and endeavors that shape how I think, work, and grow.
           </p>
         </motion.div>
 
@@ -95,33 +88,44 @@ export default function Pursuits() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 hover:border-slate-500/50 transition-all duration-300 hover:bg-slate-800/80"
+                className="relative glass-card p-6 group"
               >
                 {/* Icon */}
                 <div
-                  className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} mb-4 shadow-lg`}
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
+                  style={{
+                    background: 'rgba(201,192,176,0.08)',
+                    border: '1px solid rgba(201,192,176,0.14)',
+                  }}
                 >
-                  <Icon className="w-6 h-6 text-white" />
+                  <Icon className="w-5 h-5" style={{ color: '#C9C0B0' }} />
                 </div>
 
                 {/* Tag */}
-                <span className="inline-block text-xs font-medium text-slate-400 bg-slate-700/50 px-2.5 py-1 rounded-full mb-3">
+                <span
+                  className="inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-3"
+                  style={{ color: '#9A9490', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
+                >
                   {item.tag}
                 </span>
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                <h3
+                  className="text-base font-semibold mb-2 transition-colors duration-200"
+                  style={{ color: '#F0EDE8' }}
+                >
                   {item.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed" style={{ color: '#9A9490' }}>
                   {item.description}
                 </p>
 
-                {/* Subtle gradient hover glow */}
+                {/* Hover warm glow */}
                 <div
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`}
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse at top left, rgba(201,192,176,0.04), transparent 70%)' }}
                 />
               </motion.div>
             );

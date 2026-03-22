@@ -83,18 +83,18 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="w-72 sm:w-80 bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
-            {/* Profile image - no gap, full bleed */}
-            <div className="relative h-72 w-full">
+            {/* Profile image - scale to crop white borders */}
+            <div className="relative h-72 w-full overflow-hidden">
               <Image
                 src="/images/km_page-0001.jpg"
                 alt="Kareem Meenazi"
                 fill
-                className="object-cover object-center"
+                className="object-cover object-center scale-110"
                 priority
               />
             </div>
             {/* Card info */}
-            <div className="p-5 bg-slate-800/60">
+            <div className="p-5 bg-slate-800/80">
               <h3 className="text-white font-bold text-xl mb-1">Kareem Meenazi</h3>
               <p className="text-blue-400 text-sm font-medium mb-4">Business Analyst</p>
               <div className="space-y-2">

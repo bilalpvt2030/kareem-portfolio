@@ -8,6 +8,7 @@ const links = [
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
+    { name: 'Pursuits', href: '#pursuits' },
 ];
 
 export default function Navbar() {

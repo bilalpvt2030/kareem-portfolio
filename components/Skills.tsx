@@ -21,139 +21,133 @@ const techSkills = [
 ];
 
 const tools = [
-  'Power BI', 'Excel', 'SQL', 'Python', 'Tableau',
-  'Jira', 'Confluence', 'Figma', 'SharePoint', 'MS Teams',
-  'Google Analytics', 'Notion',
+  'POWER BI', 'EXCEL', 'SQL', 'PYTHON', 'TABLEAU',
+  'JIRA', 'CONFLUENCE', 'FIGMA', 'SHAREPOINT',
+  'MS TEAMS', 'GOOGLE ANALYTICS', 'NOTION',
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
-};
-
 export default function Skills() {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} id="skills" className="py-28 bg-[#050508]" aria-label="Skills">
-      <div className="section-container">
-
-        {/* Section header */}
+    <section
+      id="skills"
+      className="section-padding relative"
+      style={{ background: '#0A0A0A' }}
+      ref={ref}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? 'show' : 'hidden'}
-          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-14"
         >
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5">
-            <span className="w-6 h-px bg-white/20" />
-            <span className="section-label">Expertise</span>
-          </motion.div>
-          <motion.h2 variants={fadeUp} className="text-[clamp(2rem,5vw,3.5rem)] font-black leading-none tracking-[-0.03em]">
+          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#5C5854' }}>
+            Expertise
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: '#F0EDE8' }}>
             Skills &{' '}
-            <span className="heading-outline">Capabilities</span>
-          </motion.h2>
+            <span className="gradient-text">Capabilities</span>
+          </h2>
         </motion.div>
 
-        {/* Soft skills — bar chart style */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? 'show' : 'hidden'}
-          className="mb-20"
-        >
-          <motion.p variants={fadeUp} className="text-[11px] uppercase tracking-[0.25em] text-[#505060] mb-8">
-            — Core Skills
-          </motion.p>
-          <div className="flex flex-col gap-6">
-            {softSkills.map((s) => (
-              <motion.div key={s.name} variants={fadeUp}>
-                <div className="flex items-baseline justify-between mb-2">
-                  <div>
-                    <span className="text-[15px] font-semibold text-white">{s.name}</span>
-                    <span className="ml-3 text-[12px] text-[#505060]">{s.desc}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Soft Skills */}
+          <div>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-6" style={{ color: '#5C5854' }}>
+              — Core Skills
+            </p>
+            <div className="space-y-6">
+              {softSkills.map((skill, i) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                >
+                  <div className="flex justify-between items-center mb-1">
+                    <div>
+                      <span className="text-sm font-semibold" style={{ color: '#F0EDE8' }}>{skill.name}</span>
+                      <span className="text-xs ml-2" style={{ color: '#5C5854' }}>{skill.desc}</span>
+                    </div>
+                    <span className="text-xs font-mono" style={{ color: '#9A9490' }}>{skill.level}%</span>
                   </div>
-                  <span className="text-[13px] font-bold text-white/70">{s.level}%</span>
-                </div>
-                <div className="skill-bar-track">
-                  <motion.div
-                    className="skill-bar-fill"
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${s.level}%` } : { width: 0 }}
-                    transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Tech skills grid */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? 'show' : 'hidden'}
-          className="mb-16"
-        >
-          <motion.p variants={fadeUp} className="text-[11px] uppercase tracking-[0.25em] text-[#505060] mb-8">
-            — Technical & Business Skills
-          </motion.p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {techSkills.map((s) => (
-              <motion.div
-                key={s.name}
-                variants={fadeUp}
-                whileHover={{ y: -3, borderColor: 'rgba(255,255,255,0.14)' }}
-                className="glass-card rounded-xl p-4 transition-colors"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="text-[14px] font-bold text-white">{s.name}</p>
-                    <p className="text-[11px] text-[#505060] mt-0.5">{s.cat}</p>
+                  <div className="skill-bar-track">
+                    <motion.div
+                      className="skill-bar-fill"
+                      initial={{ width: 0 }}
+                      animate={inView ? { width: `${skill.level}%` } : {}}
+                      transition={{ duration: 0.8, delay: i * 0.08 + 0.2 }}
+                    />
                   </div>
-                  <span className="text-[11px] font-bold text-white/40">{s.level}%</span>
-                </div>
-                <div className="skill-bar-track">
-                  <motion.div
-                    className="skill-bar-fill"
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${s.level}%` } : { width: 0 }}
-                    transition={{ duration: 1.0, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </motion.div>
 
-        {/* Tools row */}
+          {/* Tech Skills */}
+          <div>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-6" style={{ color: '#5C5854' }}>
+              — Technical & Business Skills
+            </p>
+            <div className="space-y-5">
+              {techSkills.map((skill, i) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                >
+                  <div className="flex justify-between items-center mb-1">
+                    <div>
+                      <span className="text-sm font-semibold" style={{ color: '#F0EDE8' }}>{skill.name}</span>
+                      <span className="text-xs ml-2" style={{ color: '#5C5854' }}>{skill.cat}</span>
+                    </div>
+                    <span className="text-xs font-mono" style={{ color: '#9A9490' }}>{skill.level}%</span>
+                  </div>
+                  <div className="skill-bar-track">
+                    <motion.div
+                      className="skill-bar-fill"
+                      initial={{ width: 0 }}
+                      animate={inView ? { width: `${skill.level}%` } : {}}
+                      transition={{ duration: 0.8, delay: i * 0.08 + 0.2 }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Tools */}
         <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate={inView ? 'show' : 'hidden'}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16"
         >
-          <motion.p variants={fadeUp} className="text-[11px] uppercase tracking-[0.25em] text-[#505060] mb-6">
+          <p className="text-xs font-semibold tracking-widest uppercase mb-6" style={{ color: '#5C5854' }}>
             — Tools & Platforms
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-2">
-            {tools.map((t) => (
-              <motion.span
-                key={t}
-                whileHover={{ borderColor: 'rgba(255,255,255,0.2)', color: '#ffffff' }}
-                className="tag cursor-default transition-colors"
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {tools.map((tool) => (
+              <span
+                key={tool}
+                className="text-xs font-semibold tracking-widest px-3 py-1.5 rounded-full"
+                style={{
+                  color: '#9A9490',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'rgba(255,255,255,0.03)',
+                }}
               >
-                {t}
-              </motion.span>
+                {tool}
+              </span>
             ))}
-          </motion.div>
+          </div>
         </motion.div>
-
       </div>
     </section>
   );

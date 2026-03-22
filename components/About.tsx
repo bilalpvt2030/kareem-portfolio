@@ -7,7 +7,7 @@ import { MapPin, Briefcase, GraduationCap, Users } from 'lucide-react';
 const stats = [
   { icon: MapPin, label: 'Location', value: 'Hyderabad, IN' },
   { icon: Briefcase, label: 'Focus', value: 'Business Analysis & Data Strategy' },
-  { icon: GraduationCap, label: 'Education', value: 'BSc Business & Analytics' },
+  { icon: GraduationCap, label: 'Education', value: 'BBA Business & Analytics' },
   { icon: Users, label: 'Status', value: 'Open to Opportunities' },
 ];
 

@@ -121,7 +121,7 @@ export default function Navbar() {
             <div style={{ padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {links.map((link) => (
                 <a
-                  key={link.label}
+                  key={link.name}
                   href={link.href}
                   style={{ color: '#9A9490', fontSize: '14px', fontWeight: 500, textDecoration: 'none', padding: '0.4rem 0' }}
                   onClick={() => setOpen(false)}

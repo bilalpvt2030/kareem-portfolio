@@ -44,7 +44,7 @@ export default function Contact() {
           <p className="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Get In Touch</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Let&apos;s Connect</h2>
           <p className="text-slate-400 max-w-xl mx-auto">
-            Open to new opportunities, collaborations, and business conversations. Reach out via LinkedIn, email, or WhatsApp.
+            Open to new opportunities, collaborations, and business conversations. Reach out via LinkedIn, Mail, or WhatsApp.
           </p>
         </motion.div>
 

@@ -23,9 +23,18 @@ Built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **Framer Motion
 - TypeScript
 - Tailwind CSS
 - Framer Motion
-- Lucide React Icons
 - Deployed on Vercel
 
 ## Build Status
 
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-brightgreen)
+
+
+## Phase 5 — Polish & Production
+
+- Scroll progress indicator (golden gradient)
+- Page loader animation (KM/ intro)
+- Vercel Analytics + Speed Insights
+- Sitemap.xml & robots.txt
+- Canonical URL, theme-color, viewport meta
+- Last updated: 2026-03-22

@@ -8,7 +8,7 @@ const links = [
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
-    { name: 'Pursuits', href: '#pursuits' },
+  { name: 'Pursuits', href: '#pursuits' },
 ];
 
 export default function Navbar() {
@@ -16,97 +16,130 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const go = (href: string) => {
-    setOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-[rgba(5,5,8,0.85)] backdrop-blur-2xl border-b border-white/[0.06]' : 'bg-transparent'
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="flex items-center justify-between h-[70px]">
-            {/* Logo */}
-            <motion.button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-white font-bold text-base tracking-[0.15em] uppercase"
-              whileHover={{ opacity: 0.7 }}
-            >
-              KM<span className="text-[rgba(180,160,255,0.6)]">/</span>
-            </motion.button>
+    <motion.nav
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        backgroundColor: scrolled ? 'rgba(10,10,10,0.92)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        transition: 'all 0.3s ease',
+      }}
+    >
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
+          {/* Logo */}
+          <a
+            href="#"
+            style={{
+              fontWeight: 700,
+              fontSize: '17px',
+              letterSpacing: '0.05em',
+              color: '#F0EDE8',
+              textDecoration: 'none',
+            }}
+          >
+            KM<span style={{ color: '#C9C0B0' }}>/</span>
+          </a>
 
-            {/* Desktop Links */}
-            <div className="hidden md:flex items-center gap-10">
-              {links.map((l) => (
-                <motion.button
-                  key={l.name}
-                  onClick={() => go(l.href)}
-                  className="text-[13px] font-medium text-[#808090] hover:text-white transition-colors tracking-wide"
-                  whileHover={{ y: -1 }}
-                >
-                  {l.name}
-                </motion.button>
-              ))}
-              <motion.button
-                onClick={() => go('#contact')}
-                className="btn-primary text-xs px-5 py-2.5"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+          {/* Desktop nav */}
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="hidden md:flex">
+            {links.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                style={{
+                  color: '#9A9490',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.03em',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#F0EDE8')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#9A9490')}
               >
-                Hire Me
-              </motion.button>
-            </div>
-
-            {/* Mobile */}
-            <motion.button
-              className="md:hidden text-[#808090] hover:text-white"
-              onClick={() => setOpen(!open)}
-              whileTap={{ scale: 0.9 }}
+                {link.name}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              style={{
+                padding: '0.45rem 1.2rem',
+                background: '#C9C0B0',
+                color: '#0A0A0A',
+                fontSize: '13px',
+                fontWeight: 600,
+                borderRadius: '6px',
+                textDecoration: 'none',
+                letterSpacing: '0.03em',
+                transition: 'background 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#D8D0C2')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#C9C0B0')}
             >
-              {open ? <X size={18} /> : <Menu size={18} />}
-            </motion.button>
+              Hire Me
+            </a>
           </div>
-        </div>
-      </motion.nav>
 
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden"
+            style={{ color: '#9A9490', background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-[70px] inset-x-0 z-40 bg-[rgba(5,5,8,0.97)] backdrop-blur-2xl border-b border-white/[0.06] md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            style={{
+              backgroundColor: '#111111',
+              borderTop: '1px solid rgba(255,255,255,0.06)',
+              overflow: 'hidden',
+            }}
           >
-            <div className="px-5 py-8 flex flex-col gap-5">
-              {links.map((l, i) => (
-                <motion.button
-                  key={l.name}
-                  onClick={() => go(l.href)}
-                  className="text-left text-base font-medium text-[#808090] hover:text-white transition-colors"
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.04 }}
+            <div style={{ padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  style={{ color: '#9A9490', fontSize: '14px', fontWeight: 500, textDecoration: 'none', padding: '0.4rem 0' }}
+                  onClick={() => setOpen(false)}
                 >
-                  {l.name}
-                </motion.button>
+                  {link.name}
+                </a>
               ))}
+              <a
+                href="#contact"
+                style={{ color: '#0A0A0A', background: '#C9C0B0', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '13px', fontWeight: 600, textDecoration: 'none', textAlign: 'center', marginTop: '0.5rem' }}
+                onClick={() => setOpen(false)}
+              >
+                Hire Me
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </motion.nav>
   );
 }

@@ -4,24 +4,35 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* ============================================================
+   LUXURY CINEMATIC COLOR SYSTEM — WARM DARK
+   ============================================================ */
 :root {
-  --bg-void: #050508;
-  --bg-primary: #080810;
-  --bg-secondary: #0c0c18;
-  --bg-card: rgba(255,255,255,0.02);
-  --bg-card-hover: rgba(255,255,255,0.04);
-  --border-dim: rgba(255,255,255,0.06);
-  --border-mid: rgba(255,255,255,0.1);
-  --border-bright: rgba(255,255,255,0.18);
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0b0;
-  --text-muted: #505060;
-  --accent: #ffffff;
-  --accent-dim: rgba(255,255,255,0.15);
+  /* Backgrounds */
+  --bg-void:       #0A0A0A;
+  --bg-primary:    #111111;
+  --bg-secondary:  #161616;
+  --bg-card:       rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.055);
+
+  /* Borders */
+  --border-dim:    rgba(255, 255, 255, 0.06);
+  --border-mid:    rgba(255, 255, 255, 0.10);
+  --border-bright: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --text-primary:   #F0EDE8;
+  --text-secondary: #9A9490;
+  --text-muted:     #5C5854;
+  --text-ghost:     rgba(255, 255, 255, 0.08);
+
+  /* Accent */
+  --accent:        #C9C0B0;
+  --accent-dim:    rgba(201, 192, 176, 0.18);
+  --accent-glow:   rgba(201, 192, 176, 0.08);
 }
 
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -31,22 +42,59 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Scrollbar */
+/* ── Grain texture overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ── Edge vignette ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+/* Make all page content sit above overlays */
+#__next, main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg-void); }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+::-webkit-scrollbar-thumb { background: rgba(201,192,176,0.15); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,192,176,0.28); }
 
-/* Section layout */
+/* ── Section layout ── */
+.section-padding {
+  padding: 6rem 1.5rem;
+}
 .section-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
 
-/* Section labels */
+/* ── Section labels ── */
 .section-label {
   font-size: 10px;
   font-weight: 600;
@@ -55,26 +103,27 @@ body {
   color: var(--text-muted);
 }
 
-/* Ambient background */
-.ambient-bg {
-  background: var(--bg-void);
-}
-
-/* Glass card */
+/* ── Glass card ── */
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--border-dim);
+  border-radius: 12px;
   backdrop-filter: blur(12px);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-mid);
 }
 
-/* Horizontal rule */
+/* ── Horizontal rule ── */
 .rule {
   height: 1px;
   background: var(--border-dim);
   flex: 1;
 }
 
-/* Tag badge */
+/* ── Tag badge ── */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -83,20 +132,20 @@ body {
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-secondary);
   border: 1px solid var(--border-dim);
   padding: 0.3rem 0.75rem;
   border-radius: 100px;
 }
 
-/* Buttons */
+/* ── Buttons ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.7rem 1.75rem;
-  background: #ffffff;
-  color: #050508;
+  background: var(--accent);
+  color: #0A0A0A;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -106,16 +155,15 @@ body {
   transition: all 0.2s ease;
 }
 .btn-primary:hover {
-  background: #e8e8e8;
+  background: #D8D0C2;
 }
-
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.7rem 1.75rem;
   background: transparent;
-  color: rgba(255,255,255,0.6);
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -126,10 +174,18 @@ body {
 }
 .btn-ghost:hover {
   border-color: var(--border-bright);
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
-/* Skill bar */
+/* ── Gradient text (accent) ── */
+.gradient-text {
+  background: linear-gradient(135deg, #C9C0B0 0%, #A09890 50%, #C9C0B0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Skill bar ── */
 .skill-bar-track {
   height: 2px;
   background: rgba(255,255,255,0.06);
@@ -138,28 +194,29 @@ body {
 }
 .skill-bar-fill {
   height: 100%;
-  background: rgba(255,255,255,0.7);
+  background: var(--accent);
   border-radius: 2px;
+  opacity: 0.7;
 }
 
-/* Section heading accent */
-.heading-outline {
-  -webkit-text-stroke: 1px rgba(255,255,255,0.15);
-  color: transparent;
-}
-
-/* Timeline line */
+/* ── Timeline line ── */
 .timeline-line {
   width: 1px;
   background: var(--border-dim);
 }
 
-/* Noise texture overlay */
+/* ── Image cinematic treatment ── */
+.cinematic-img {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+/* ── Noise overlay (for sections) ── */
+.noise { position: relative; }
 .noise::after {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.015;
+  opacity: 0.03;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
